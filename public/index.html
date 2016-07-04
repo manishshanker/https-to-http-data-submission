@@ -1,0 +1,47 @@
+<html>
+<body>
+<h1>HTTPS Content</h1>
+<script type="text/javascript">
+    /* <![CDATA[ */
+
+    if (!String.prototype.supplant) {
+        String.prototype.supplant = function (o) {
+            return this.replace(
+                    /\{([^{}]*)\}/g,
+                    function (a, b) {
+                        var r = o[b];
+                        return typeof r === 'string' || typeof r === 'number' ? r : a;
+                    }
+            );
+        };
+    }
+
+    function submitData() {
+        var dataWin = window.open("https://localhost:8443/public/empty.html");
+        if (dataWin) {
+            submitDataToForm(dataWin, {
+                documentID: 12,
+                documentName: 'Test'
+            });
+        } else {
+            alert('Please ensure popup blocker is disabled for this site in order to ensure this works.')
+        }
+    }
+
+    function submitDataToForm(dataWin, data) {
+        dataWin.document.write([
+            '<form id="myForm" action="http://localhost:8080/success.html">',
+                '<input type="text" value="{documentID}" name="documentID"/>',
+                '<input type="text" value="{documentName}" name="documentName"/>',
+                '<input type="submit"/>',
+            '</form>',
+            '<script>document.getElementById("myForm").submit();<\/script>'
+        ].join('').supplant(data))
+    }
+
+    /* ]]> */
+</script>
+<button onclick='submitData();'>Submit Data</button>
+<br/>
+</body>
+</html>
