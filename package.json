@@ -4,7 +4,7 @@
   "description": "Install server-https and http-server",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/http-server & ./node_modules/.bin/serve-https"
+    "start": "concurrently \"./node_modules/.bin/http-server\" \"./node_modules/.bin/serve-https\" -r"
   },
   "repository": {
     "type": "git",

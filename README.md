@@ -1,3 +1,5 @@
+`npm i concurrently -g`
+
 `npm i` 
 
 `npm start` 
